@@ -64,8 +64,8 @@ const SkillCard = ({
                     <div className="author">
                         <img src="/logo512.png" alt="author avatar" className="avatar"/>
                         <div className="author-copy">
-                            <p>Khai</p>
-                            <p>{new Date(createdAt).toLocaleDateString()}</p>
+                            <p>{authorEmail ?? "Unknown author"}</p>
+                            <p>{createdAt ? new Date(createdAt).toLocaleDateString() : "Unknown date"}</p>
                         </div>
                     </div>
                     <p className="category">{category}</p>
@@ -109,7 +109,7 @@ const SkillCard = ({
                             <ArrowUpRight size={14} />
                         </Link>
 
-                        <button type="button" className="save" title="Share" aria-label="Saved state" disabled>
+                        <button type="button" className="save" title="Save" aria-label="Save" disabled>
                             <Bookmark size={16} />
                         </button>
                     </div>

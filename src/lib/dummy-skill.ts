@@ -1,3 +1,4 @@
+
 export const dummySkillRecords: SkillRecord[] = [
     {
         id: "skill_001",

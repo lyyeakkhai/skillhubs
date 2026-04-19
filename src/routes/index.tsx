@@ -37,7 +37,7 @@ function App() {
           <section className="latest">
               <div className="space-y-2">
                   <h2>
-                      Recently created
+                      Recently created{" "}
                       <span className="text-gradient">Skills</span>
                   </h2>
                   <p>

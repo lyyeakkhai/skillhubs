@@ -6,7 +6,7 @@ interface SkillRecord {
     category: string;
     tags: string[];
     installCommand: string;
-    createdAt: string | null;
+    createdAt: string;
     authorClerkId: string | null;
     authorEmail: string | null;
 }
