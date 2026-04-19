@@ -554,10 +554,18 @@
 
     .copy {
       @apply p-1 text-text-muted opacity-0 transition-opacity hover:text-white;
+
+      &.copied {
+        @apply opacity-100 text-green-400;
+      }
     }
 
     &:hover .copy {
       @apply opacity-100;
+    }
+
+    .copy-success-icon {
+      animation: copySuccessPop 180ms ease-out;
     }
 
     .footer {
@@ -651,6 +659,18 @@
 
   .btn-secondary {
     @apply bg-transparent! text-foreground! border! border-border! px-6! py-2.5! rounded-sm! font-semibold! text-sm! transition-all! hover:bg-accent! hover:border-muted-foreground! cursor-pointer! flex! items-center! justify-center! gap-2!;
+  }
+}
+
+@keyframes copySuccessPop {
+  from {
+    opacity: 0.5;
+    transform: scale(0.85);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 
