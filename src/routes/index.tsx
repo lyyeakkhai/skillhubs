@@ -1,12 +1,37 @@
-import {createFileRoute, Link} from '@tanstack/react-router'
+import {createFileRoute, Link, redirect} from '@tanstack/react-router'
 import {Terminal} from "lucide-react";
 import SkillCard from "../components/SkillCard";
 import {dummySkillRecords} from "../lib/dummy-skill";
+import { createServerFn } from '@tanstack/react-start'
+import { auth } from '@clerk/tanstack-react-start/server'
 
 
-export const Route = createFileRoute('/')({ component: App })
+const authStateFn = createServerFn().handler(async () => {
+    const { isAuthenticated, userId } = await auth()
+
+    if (!isAuthenticated) {
+        // This will error because you're redirecting to a path that doesn't exist yet
+        // You can create a sign-in route to handle this
+        // See https://clerk.com/docs/tanstack-react-start/guides/development/custom-sign-in-or-up-page
+        throw redirect({
+            to: '/sign-in',
+        })
+    }
+
+    return { userId }
+})
+
+export const Route = createFileRoute('/')({
+    component: App,
+    beforeLoad: async () => await authStateFn(),
+    loader: async ({ context }) => {
+        return { userId: context.userId }
+    },
+})
 
 function App() {
+    const state = Route.useLoaderData()
+
   return (
       <div id="home">
           <section className="hero">

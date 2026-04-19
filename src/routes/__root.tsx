@@ -1,7 +1,7 @@
 import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanStackDevtools } from '@tanstack/react-devtools'
-import ClerkProvider from '../integrations/clerk/provider'
+import { ClerkProvider } from '@clerk/tanstack-react-start'
 import appCss from '../styles.css?url'
 import Navbar from "#/components/Navbar.tsx";
 import Crosshair from "#/components/Crosshair";
@@ -58,7 +58,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
               </div>
             </main>
           </div>
-
+        </ClerkProvider>
           <TanStackDevtools
             config={{
               position: 'bottom-right',
@@ -70,7 +70,6 @@ function RootDocument({ children }: { children: React.ReactNode }) {
               },
             ]}
           />
-        </ClerkProvider>
         <Scripts />
       </body>
     </html>
