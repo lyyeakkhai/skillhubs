@@ -2,6 +2,7 @@ import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanStackDevtools } from '@tanstack/react-devtools'
 import { ClerkProvider } from '@clerk/tanstack-react-start'
+import { PostHogProvider } from '@posthog/react'
 import appCss from '../styles.css?url'
 import Navbar from "#/components/Navbar.tsx";
 import Crosshair from "#/components/Crosshair";
@@ -42,6 +43,13 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body className="font-sans antialiased wrap-anywhere">
+        <PostHogProvider
+          apiKey={import.meta.env.VITE_POSTHOG_KEY}
+          options={{
+            api_host: import.meta.env.VITE_POSTHOG_HOST,
+            defaults: '2026-01-30',
+          }}
+        >
         <ClerkProvider>
           <div id="root-layout">
             <header>
@@ -59,6 +67,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
             </main>
           </div>
         </ClerkProvider>
+        </PostHogProvider>
           <TanStackDevtools
             config={{
               position: 'bottom-right',
