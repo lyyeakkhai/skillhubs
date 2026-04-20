@@ -21,7 +21,7 @@ const Navbar = () => (
                 <UserButton />
             </Show>
             <Show when="signed-out">
-                <Link to="sign-in/$" className="btn-primary">
+                <Link to="/sign-in/$" className="btn-primary">
                     <LogInIcon />
                     Sign in
                 </Link>

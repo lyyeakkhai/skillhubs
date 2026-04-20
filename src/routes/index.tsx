@@ -10,11 +10,8 @@ const authStateFn = createServerFn().handler(async () => {
     const { isAuthenticated, userId } = await auth()
 
     if (!isAuthenticated) {
-        // This will error because you're redirecting to a path that doesn't exist yet
-        // You can create a sign-in route to handle this
-        // See https://clerk.com/docs/tanstack-react-start/guides/development/custom-sign-in-or-up-page
         throw redirect({
-            to: '/sign-in',
+            to: '/sign-in/$',
         })
     }
 
@@ -41,7 +38,6 @@ function App() {
                       <span className="text-gradient">
                           Agentic intelligence
                       </span>
-
                   </h1>
                   <p>
                       A high performance register for procedural agent skill discovery, public and operate reusable agent capabilities from a remote driven workspace
