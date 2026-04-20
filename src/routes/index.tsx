@@ -1,12 +1,34 @@
-import {createFileRoute, Link} from '@tanstack/react-router'
+import {createFileRoute, Link, redirect} from '@tanstack/react-router'
 import {Terminal} from "lucide-react";
 import SkillCard from "../components/SkillCard";
 import {dummySkillRecords} from "../lib/dummy-skill";
+import { createServerFn } from '@tanstack/react-start'
+import { auth } from '@clerk/tanstack-react-start/server'
 
 
-export const Route = createFileRoute('/')({ component: App })
+const authStateFn = createServerFn().handler(async () => {
+    const { isAuthenticated, userId } = await auth()
+
+    if (!isAuthenticated) {
+        throw redirect({
+            to: '/sign-in/$',
+        })
+    }
+
+    return { userId }
+})
+
+export const Route = createFileRoute('/')({
+    component: App,
+    beforeLoad: async () => await authStateFn(),
+    loader: async ({ context }) => {
+        return { userId: context.userId }
+    },
+})
 
 function App() {
+    const state = Route.useLoaderData()
+
   return (
       <div id="home">
           <section className="hero">
@@ -16,7 +38,6 @@ function App() {
                       <span className="text-gradient">
                           Agentic intelligence
                       </span>
-
                   </h1>
                   <p>
                       A high performance register for procedural agent skill discovery, public and operate reusable agent capabilities from a remote driven workspace
